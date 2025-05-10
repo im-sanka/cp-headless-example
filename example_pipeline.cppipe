@@ -1,0 +1,215 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:5
+DateRevision:421
+GitHash:
+ModuleCount:10
+HasImagePlaneDetails:False
+
+Images:[module_num:1|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['To begin creating your project, use the Images module to compile a list of files and/or folders that you want to analyze. You can also specify a set of rules to include only the desired files in your selected folders.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    :
+    Filter images?:No filtering
+    Select the rule criteria:and (extension does istif)
+
+Metadata:[module_num:2|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:['The Metadata module optionally allows you to extract information describing your images (i.e, metadata) which will be stored along with your measurements. This information can be contained in the file name and/or location, or in an external file.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Extract metadata?:Yes
+    Metadata data type:Text
+    Metadata types:{}
+    Extraction method count:1
+    Metadata extraction method:Extract from file/folder names
+    Metadata source:File name
+    Regular expression to extract from file name:Slide(?P<Site>[0-9][0-9])_
+    Regular expression to extract from folder name:(?P<Date>[0-9]{4}_[0-9]{2}_[0-9]{2})$
+    Extract metadata from:Images matching a rule
+    Select the filtering criteria:and (file does contain "Slide")
+    Metadata file location:Elsewhere...|
+    Match file and image metadata:[]
+    Use case insensitive matching?:No
+    Metadata file name:
+    Does cached metadata exist?:No
+
+NamesAndTypes:[module_num:3|svn_version:'Unknown'|variable_revision_number:8|show_window:False|notes:['The NamesAndTypes module allows you to assign a meaningful name to each image by which other modules will refer to it.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Assign a name to:Images matching rules
+    Select the image type:Grayscale image
+    Name to assign these images:DNA
+    Match metadata:[]
+    Image set matching method:Order
+    Set intensity range from:Image metadata
+    Assignments count:1
+    Single images count:0
+    Maximum intensity:255.0
+    Process as 3D?:No
+    Relative pixel spacing in X:1.0
+    Relative pixel spacing in Y:1.0
+    Relative pixel spacing in Z:1.0
+    Select the rule criteria:and (and (file does contain "Bacteria"))
+    Name to assign these images:FluorescenceImage
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+
+Groups:[module_num:4|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['The Groups module optionally allows you to split your list of images into image subsets (groups) which will be processed independently of each other. Examples of groupings include screening batches, microtiter plates, time-lapse movies, etc.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Do you want to group your images?:No
+    grouping metadata count:1
+    Metadata category:FileLocation
+
+IdentifyPrimaryObjects:[module_num:5|svn_version:'Unknown'|variable_revision_number:15|show_window:True|notes:['']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:FluorescenceImage
+    Name the primary objects to be identified:Droplets
+    Typical diameter of objects, in pixel units (Min,Max):150,250
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:Yes
+    Method to distinguish clumped objects:Shape
+    Method to draw dividing lines between clumped objects:Shape
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:15
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Fill holes in identified objects?:After declumping only
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Manual
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:1.5
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.023
+    Select the measurement to threshold with:Scaling_BF
+    Two-class or three-class thresholding?:Three classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Median
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Otsu
+
+MeasureObjectIntensity:[module_num:6|svn_version:'Unknown'|variable_revision_number:4|show_window:True|notes:['']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:FluorescenceImage
+    Select objects to measure:Droplets
+
+DisplayDataOnImage:[module_num:7|svn_version:'Unknown'|variable_revision_number:6|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display object or image measurements?:Object
+    Select the input objects:Droplets
+    Measurement to display:Number_Object_Number
+    Select the image on which to display the measurements:FluorescenceImage
+    Text color:red
+    Name the output image that has the measurements displayed:DisplayImage
+    Font size (points):10
+    Number of decimals:0
+    Image elements to save:Image
+    Annotation offset (in pixels):0
+    Display mode:Text
+    Color map:Default
+    Display background image?:Yes
+    Color map scale:Use this image's measurement range
+    Color map range:0.0,1.0
+
+SaveImages:[module_num:8|svn_version:'Unknown'|variable_revision_number:16|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:DisplayImage
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:FluorescenceImage
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:No
+    Text to append to the image name:
+    Saved file format:tiff
+    Output file location:Same folder as image|
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:No
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:Yes
+
+ExportToSpreadsheet:[module_num:9|svn_version:'Unknown'|variable_revision_number:13|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the column delimiter:Comma (",")
+    Add image metadata columns to your object data file?:No
+    Add image file and folder names to your object data file?:No
+    Select the measurements to export:Yes
+    Calculate the per-image mean values for object measurements?:No
+    Calculate the per-image median values for object measurements?:No
+    Calculate the per-image standard deviation values for object measurements?:No
+    Output file location:Default Input Folder sub-folder|Desktop/CP/output
+    Create a GenePattern GCT file?:No
+    Select source of sample row name:Metadata
+    Select the image to use as the identifier:None
+    Select the metadata to use as the identifier:None
+    Export all measurement types?:Yes
+    Press button to select measurements:Droplets|Intensity_MassDisplacement_FluorescenceImage,Droplets|Intensity_MinIntensity_FluorescenceImage,Droplets|Intensity_StdIntensity_FluorescenceImage,Droplets|Intensity_IntegratedIntensityEdge_FluorescenceImage,Droplets|Intensity_UpperQuartileIntensity_FluorescenceImage,Droplets|Intensity_IntegratedIntensity_FluorescenceImage,Droplets|Intensity_MinIntensityEdge_FluorescenceImage,Droplets|Intensity_MADIntensity_FluorescenceImage,Droplets|Intensity_MeanIntensity_FluorescenceImage,Droplets|Intensity_MeanIntensityEdge_FluorescenceImage,Droplets|Intensity_LowerQuartileIntensity_FluorescenceImage,Droplets|Intensity_MaxIntensity_FluorescenceImage,Droplets|Intensity_MedianIntensity_FluorescenceImage,Droplets|Intensity_StdIntensityEdge_FluorescenceImage,Droplets|Intensity_MaxIntensityEdge_FluorescenceImage,Droplets|Number_Object_Number,Droplets|Location_MaxIntensity_Y_FluorescenceImage,Droplets|Location_MaxIntensity_X_FluorescenceImage,Droplets|Location_MaxIntensity_Z_FluorescenceImage,Droplets|Location_CenterMassIntensity_Y_FluorescenceImage,Droplets|Location_CenterMassIntensity_X_FluorescenceImage,Droplets|Location_CenterMassIntensity_Z_FluorescenceImage,Droplets|Location_Center_Y,Droplets|Location_Center_X,Droplets|Location_Center_Z,Image|Count_Droplets,Image|ModuleError_01Images,Image|ModuleError_04Groups,Image|ModuleError_02Metadata,Image|ModuleError_06MeasureObjectIntensity,Image|ModuleError_03NamesAndTypes,Image|ModuleError_05IdentifyPrimaryObjects,Image|Group_Index,Image|Group_Number,Image|ExecutionTime_01Images,Image|ExecutionTime_04Groups,Image|ExecutionTime_02Metadata,Image|ExecutionTime_06MeasureObjectIntensity,Image|ExecutionTime_03NamesAndTypes,Image|ExecutionTime_05IdentifyPrimaryObjects,Image|Series_FluorescenceImage,Image|Frame_FluorescenceImage,Image|URL_FluorescenceImage,Image|MD5Digest_FluorescenceImage,Image|FileName_FluorescenceImage,Image|Scaling_FluorescenceImage,Image|Width_FluorescenceImage,Image|PathName_FluorescenceImage,Image|Threshold_OrigThreshold_Droplets,Image|Threshold_SumOfEntropies_Droplets,Image|Threshold_WeightedVariance_Droplets,Image|Threshold_FinalThreshold_Droplets,Image|Height_FluorescenceImage,Image|Metadata_Series,Image|Metadata_Frame,Image|Metadata_FileLocation,Image|Metadata_Site,Experiment|Modification_Timestamp,Experiment|Pipeline_Pipeline,Experiment|Run_Timestamp,Experiment|CellProfiler_Version
+    Representation of Nan/Inf:NaN
+    Add a prefix to file names?:No
+    Filename prefix:Hamamatsu_
+    Overwrite existing files without warning?:No
+    Data to export:Do not use
+    Combine these object measurements with those of the previous object?:No
+    File name:DATA.csv
+    Use the object name for the file name?:Yes
+
+ExportToDatabase:[module_num:10|svn_version:'Unknown'|variable_revision_number:28|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Database type:SQLite
+    Database name:DefaultDB
+    Add a prefix to table names?:Yes
+    Table prefix:FluorescenceDroplets
+    Output file location:Default Output Folder|TalTech\\Microfluidics - Documents\\Microscope pics\\2019
+    Create a CellProfiler Analyst properties file?:Yes
+    Database host:
+    Username:
+    Password:
+    Name the SQLite database file:FluorescenceDroplets.db
+    Calculate the per-image mean values of object measurements?:No
+    Calculate the per-image median values of object measurements?:No
+    Calculate the per-image standard deviation values of object measurements?:No
+    Calculate the per-well mean values of object measurements?:No
+    Calculate the per-well median values of object measurements?:No
+    Calculate the per-well standard deviation values of object measurements?:No
+    Export measurements for all objects to the database?:All
+    Select the objects:
+    Maximum # of characters in a column name:64
+    Create one table per object, a single object table or a single object view?:Single object table
+    Enter an image url prepend if you plan to access your files via http:
+    Write image thumbnails directly to the database?:No
+    Select the images for which you want to save thumbnails:
+    Auto-scale thumbnail pixel intensities?:Yes
+    Select the plate type:None
+    Select the plate metadata:None
+    Select the well metadata:Site
+    Include information for all images, using default values?:Yes
+    Properties image group count:1
+    Properties group field count:1
+    Properties filter field count:0
+    Workspace measurement count:1
+    Experiment name:FluorescenceDroplets
+    Which objects should be used for locations?:Droplets
+    Enter a phenotype class table name if using the Classifier tool in CellProfiler Analyst:PosNegDroplets
+    Export object relationships?:Yes
+    Overwrite without warning?:Never
+    Access CellProfiler Analyst images via URL?:No
+    Select the classification type:Object
+    Select an image to include:None
+    Use the image name for the display?:Yes
+    Image name:Channel1
+    Channel color:red
+    Do you want to add group fields?:No
+    Enter the name of the group:
+    Enter the per-image columns which define the group, separated by commas:ImageNumber, Image_Metadata_Plate, Image_Metadata_Well
+    Do you want to add filter fields?:No
+    Automatically create a filter for each plate?:No
+    Create a CellProfiler Analyst workspace file?:No
+    Select the measurement display tool:ScatterPlot
+    Type of measurement to plot on the X-axis:Image
+    Enter the object name:None
+    Select the X-axis measurement:None
+    Select the X-axis index:ImageNumber
+    Type of measurement to plot on the Y-axis:Image
+    Enter the object name:None
+    Select the Y-axis measurement:None
+    Select the Y-axis index:ImageNumber

@@ -1,0 +1,16 @@
+name: cellprofiler
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - cellprofiler=4.2.1
+  - openjdk
+  - python.app
+  - h5py
+  - mysqlclient
+  - pillow
+  - numpy<1.24
+  - pip
+  - pip:
+      - typeguard==2.12.1
