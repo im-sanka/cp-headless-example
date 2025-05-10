@@ -1,4 +1,4 @@
-# 🧪 CellProfiler Headless Setup on Apple Silicon (M1/M2) Macs
+# 🧪 CellProfiler Headless Setup on Apple Silicon M-Series (M1/ M2/ etc.)
 
 This guide walks you through installing and running CellProfiler in headless mode on Apple Silicon (M1, M2, etc.) Macs using Rosetta 2, Conda, and Mamba.
 
